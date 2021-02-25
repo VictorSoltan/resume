@@ -78,6 +78,7 @@
   height: 600px;
 }
 .code img{
+  display: flex;
   width: 360px;
   margin: 100px 0 100px 0;
   bottom: 0;
@@ -162,6 +163,7 @@
   width: 1em;
   height: 1em;
   font-size: 20px;
+  margin-right: 10px;
 }
 .marker-input{
   font-family: 'Montserrat', sans-serif;

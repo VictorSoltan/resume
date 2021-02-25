@@ -106,8 +106,8 @@ textarea {
     max-width: 600px;
     font-family: 'Montserrat', sans-serif;
 }
-span {
-    display: flex;
+.contint {
+    display: block !important;
     font-family: 'Montserrat', sans-serif;    
 }
 /* CONTENT FIELD */

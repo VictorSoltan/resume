@@ -48,6 +48,7 @@ function Avatar() {
     let node = document.createElement("input");
     let ProcNode = document.createElement("input");
     let liElem = document.createElement("li");
+    let area = document.createElement("textarea");
     node.classList.add('input')
     if (Number(value) === 0){
       node.classList.add('header-input')
@@ -83,8 +84,8 @@ function Avatar() {
       container.appendChild(ProcNode)
       document.querySelector('.skills').appendChild(container)
     }else{
-      container.appendChild(node)
-      node.classList.add('marker-input')
+      container.appendChild(area)
+      area.classList.add('marker-input')
       liElem.classList.add('marker')
       liElem.appendChild(container)
       document.querySelector('.skills').appendChild(liElem)

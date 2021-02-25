@@ -46,7 +46,6 @@ function Bio() {
 
   const addElem = (e) => {
     let value = e.target.nextElementSibling.value
-    console.log(e.target.nextElementSibling.value)
     let container = document.createElement("div");
     let cont = document.createElement("div");
     let img = document.createElement("img");
@@ -90,37 +89,37 @@ function Bio() {
     }
   };
   const removeElem = (e) => {
-    console.log(e.target)
     let biography = document.querySelector('.biography')
     if (biography.children.length > 0){
       biography.removeChild(biography.lastElementChild)
     }  
   };
-  const strongElem = () => {
-    let strong = document.createElement("strong");
-    let span = document.createElement("span");
-    let span1 = document.createElement("span");
-    let textSpan = document.querySelectorAll('span')
-    let rt = window.getSelection()
-    if(rt != null && rt.anchorNode != null){
-      let beforeSelect = rt.anchorNode.data.substr(0, rt.focusOffset) 
-      let selectedText = rt.anchorNode.data.substr(rt.focusOffset, (rt.anchorOffset - rt.focusOffset)) 
-      let afterSelect = rt.anchorNode.data.substr(rt.anchorOffset, rt.anchorNode.length) 
-      alert(beforeSelect)
-      alert(selectedText)
-      alert(afterSelect)
-      let text = rt.anchorNode.data;
-      let selectedParent = rt.anchorNode.parentNode;
-      span.innerHTML = beforeSelect
-      strong.innerHTML = selectedText
-      span1.innerHTML = afterSelect
-      selectedParent.innerHTML = ''
-      selectedParent.appendChild(span)
-      selectedParent.appendChild(strong)
-      selectedParent.appendChild(span1)
-      // selectedParent.removeChild(rt.anchorNode.parentNode)
+
+  function getSelectionHtml() {
+    var sel, range, node;
+    if (window.getSelection) {
+        sel = window.getSelection();
+        if (sel.getRangeAt && sel.rangeCount) {
+            range = window.getSelection().getRangeAt(0);
+            
+            var html = '<span style="font-weight:bold;">' + range + '</span>'
+            range.deleteContents();
+            
+            var el = document.createElement("div");
+            el.innerHTML = html;
+            var frag = document.createDocumentFragment(), node, lastNode;
+            while ( (node = el.firstChild) ) {
+                lastNode = frag.appendChild(node);
+            }
+            range.insertNode(frag);
+        }
+    } else if (document.selection && document.selection.createRange) {
+        range = document.selection.createRange();
+        range.collapse(false);
+        range.pasteHTML(html);
     }
-  }  
+
+}
   return (
     <div className="bio">
       <div className="contacts">
@@ -170,7 +169,7 @@ function Bio() {
             <MyComponent/>            
             <button onClick={removeElem}>Удалить последний элемент</button>
         </div>
-        <button className="removeElem" onClick={strongElem}>Обозначить выделенное</button>
+        <button className="removeElem" onClick={getSelectionHtml}>Обозначить выделенное</button>
       </div>
       <div className="biography">
       </div>

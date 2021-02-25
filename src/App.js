@@ -7,12 +7,15 @@ import domtoimage from 'dom-to-image';
 
 function App() {
   const Save = () => {
-    let textSpan = document.createElement("span");
     let area = document.querySelectorAll('textarea')
     for(let x=0; x<area.length; x++){
+      let textSpan = document.createElement("div");
+      textSpan.classList.add('contint')
+      textSpan.contentEditable = "true"; 
       textSpan.innerHTML = area[x].value
       textSpan.style.width = area[x].offsetWidth + 'px'
       textSpan.style.height = area[x].offsetHeight + 'px'
+      console.log(textSpan)
       area[x].parentNode.appendChild(textSpan)
       area[x].parentNode.removeChild(area[x])
     } 
