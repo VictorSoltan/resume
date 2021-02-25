@@ -1,0 +1,171 @@
+/* AVATAR */
+.header {
+  display: flex;
+  flex-direction: column;
+  background-color: #f7f7f7;
+  width: 52%;
+  padding-top: 22px;
+  min-height: 100vh;
+}
+.ava-img {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.avatar {
+  border-radius: 100%;
+  border: 6px solid #11adb5;
+  width: 195px;
+}
+.browse-img {
+  background: none;
+}
+.input {
+  background: none;
+  border: none;
+  border-bottom: 1px solid #11adb5;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  outline: 0;
+}
+/* BUTTONS STYLES */
+.add-buttons{
+  margin-top: 20px;
+  width: 100% !important;
+}
+.add-buttons button{
+  background: none;
+  border: 1px solid #11adb5;
+  width: 100px;
+}  
+.add-buttons button:nth-child(2){
+  background: none;
+  border: 1px solid #11adb5;  
+  width: auto;
+  height: 30px;
+  margin: 0 auto;
+}  
+.add-buttons select{
+  background: none;
+  border: 1px solid #11adb5; 
+}  
+.add-element{
+  display: flex;
+  width: 100% !important;
+}
+.add-element select{
+  width: 50%;
+}
+.img-options{
+  width: 80px;
+}
+.removeElem{
+
+}
+/* CONTENT */
+.skills{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  flex: 1;
+}
+.skills div{
+  display: flex;
+}
+.code {
+  margin: 0 auto;
+  height: 600px;
+}
+.code img{
+  width: 360px;
+  margin: 100px 0 100px 0;
+  bottom: 0;
+}
+/* ADDED ELEMENTS */
+.input-name{
+  text-align: center;
+  font-weight: 700;
+  font-size: 54px;
+  width: 100%;
+}
+.input-profession{
+  text-align: center;
+  margin-top: -8px;
+  width: 100%;
+  font-size: 32px;
+  color: #11adb5;
+}
+.header-input{
+  font-size: 26px;
+  width: 290px;
+  padding-left: 12px;
+}
+.header-container{
+  margin-top: 60px;
+}
+.icon-column{
+  background-color: #11adb5;
+  padding: 7px;
+  border-radius: 100%;
+  width: 27px;
+  height: 27px;
+}
+.icon-column img{
+  width: 28px;
+}
+.column-input{
+  font-family: 'Montserrat', sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  margin-top: 12px;
+  width: 280px;
+}
+.progress-bar{
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+  margin: 5px;
+}
+.progress-bar input{
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+}
+.pBar-border{
+  margin-top: 4px;
+  border: 1px solid #11adb5;
+}
+.pBar-progress{
+  background-color: #11adb5;
+  height: 5px;
+  width: 20%;
+}
+.procents{
+  background: none;
+  border: none;
+  border-bottom: 1px solid #11adb5;
+}
+.marker {
+  display: flex;
+  list-style: none; 
+  width: 350px;
+  margin: 4px;
+}
+.marker:nth-child(2){
+  margin-top: 15px;
+}
+.marker::before {
+  content: "\2022"; 
+  color: #11adb5;
+  font-weight: bold;
+  width: 1em;
+  height: 1em;
+  font-size: 20px;
+}
+.marker-input{
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  width: 360px;
+}
