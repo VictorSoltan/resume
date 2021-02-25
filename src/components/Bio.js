@@ -118,8 +118,18 @@ function Bio() {
         range.collapse(false);
         range.pasteHTML(html);
     }
-
-}
+  }
+  const removeSelectionHtml = () => {
+    let rt = window.getSelection()
+    if (rt.focusNode.children !== undefined){
+      rt.focusNode.children[0].style = 'fontWeight: normal;'
+    }else if(rt.focusNode.previousSibling !== null){
+      rt.focusNode.previousSibling.style = 'fontWeight: normal;'
+    }else{
+      rt.focusNode.parentElement.style = 'fontWeight: normal;'      
+    }
+    console.log(rt)
+  }
   return (
     <div className="bio">
       <div className="contacts">
@@ -170,6 +180,7 @@ function Bio() {
             <button onClick={removeElem}>Удалить последний элемент</button>
         </div>
         <button className="removeElem" onClick={getSelectionHtml}>Обозначить выделенное</button>
+        <button onClick={removeSelectionHtml}>Удалить выделенное</button>
       </div>
       <div className="biography">
       </div>

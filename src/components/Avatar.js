@@ -123,7 +123,7 @@ function Avatar() {
       </div>
       <div className="code">
         <img src={code} />
-        <input className="browse-img" type="file"  accept="image/*" name="image" id="file" onChange={loadQrCode}></input>
+        <input className="browseImg" type="file"  accept="image/*" name="image" id="file" onChange={loadQrCode}></input>
       </div>      
     </div>
   );

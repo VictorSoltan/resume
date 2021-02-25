@@ -24,7 +24,9 @@ function App() {
   const printDocument = () => {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
+    
     // document.querySelector('.save-button').style = 'display: none;'
+    document.querySelector('.browseImg').style = 'display: none;'
     let inputList = document.querySelectorAll('.input')
     for (let x = 0; x < inputList.length; x++){
       inputList[x].style = 'border-bottom: none;'
