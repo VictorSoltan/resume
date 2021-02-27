@@ -5,17 +5,21 @@
   background-color: #f7f7f7;
   width: 52%;
   padding-top: 22px;
-  min-height: 100vh;
 }
 .ava-img {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.avatar {
+.avatar-container {
   border-radius: 100%;
   border: 6px solid #11adb5;
-  width: 195px;
+  width: 180px;
+  height: 180px;
+  overflow: hidden;
+}
+.avatar{
+  width: 180px;
 }
 .browse-img {
   background: none;
@@ -59,9 +63,6 @@
 .img-options{
   width: 80px;
 }
-.removeElem{
-
-}
 /* CONTENT */
 .skills{
   display: flex;
@@ -75,45 +76,56 @@
 }
 .code {
   margin: 0 auto;
-  height: 600px;
+  height: 560px;
 }
 .code img{
   display: flex;
   width: 360px;
-  margin: 100px 0 100px 0;
-  bottom: 0;
+  margin: 100px 0 70px 0;
 }
 /* ADDED ELEMENTS */
 .input-name{
   text-align: center;
   font-weight: 700;
-  font-size: 54px;
+  font-size: 52px;
   width: 100%;
+  margin-top: 16px;
 }
 .input-profession{
   text-align: center;
-  margin-top: -8px;
-  width: 100%;
-  font-size: 32px;
-  color: #11adb5;
-}
-.header-input{
-  font-size: 26px;
-  width: 290px;
-  padding-left: 12px;
+  margin-top: -2px;
+  max-width: 300px;
+  font-size: 31px;
+  color: #11adb5 !important;
 }
 .header-container{
-  margin-top: 60px;
+  margin: 60px 0 12px 35px;
+  /* margin-bottom: 12px; */
+}
+.header-input{
+  font-size: 24px;
+  width: 290px;
+  padding-left: 12px;
+  text-transform: uppercase;
 }
 .icon-column{
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: #11adb5;
-  padding: 7px;
+  padding: 9px;
   border-radius: 100%;
-  width: 27px;
-  height: 27px;
+  width: 25px;
+  height: 25px;
 }
-.icon-column img{
-  width: 28px;
+.language{
+  width: 25px;
+}
+.skill-Dev {
+  padding-left: 3px;
+  padding-bottom: 2px;
+  width: 32px;
+  height: 32px;
 }
 .column-input{
   font-family: 'Montserrat', sans-serif;
@@ -122,16 +134,20 @@
   margin-top: 12px;
   width: 280px;
 }
+.column-input-mpTop {
+  margin-top: 20px;
+}
 .progress-bar{
   display: flex;
   flex-direction: column;
-  width: 320px;
-  margin: 5px;
+  width: 308px;
+  margin: 4px;
 }
 .progress-bar input{
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 18px;
+  letter-spacing: -0.5px;
 }
 .pBar-border{
   margin-top: 4px;
@@ -149,12 +165,11 @@
 }
 .marker {
   display: flex;
+  align-items: flex-start;
   list-style: none; 
   width: 350px;
-  margin: 4px;
-}
-.marker:nth-child(2){
-  margin-top: 15px;
+  margin-left: 42px;
+  margin-bottom: -5px;
 }
 .marker::before {
   content: "\2022"; 
@@ -162,12 +177,13 @@
   font-weight: bold;
   width: 1em;
   height: 1em;
-  font-size: 20px;
+  font-size: 34px;
   margin-right: 10px;
 }
 .marker-input{
   font-family: 'Montserrat', sans-serif;
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 400;
-  width: 360px;
+  width: 335px;
+  height: 10px;
 }
