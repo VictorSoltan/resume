@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
 import Option from 'react-select';
-import './avatar.css';
 import userpic from './../static/userpic.png'
 import skillDev from './../static/skill-development.png'
 import language from './../static/language.png'
 import code from './../static/photo_2021-02-27_20-07-21.jpg'
 
-function Avatar() {
-  const mystyle = {
-    backgroundColor: "DodgerBlue",
-    padding: "5px",
-  };
+import './avatar.css';
+
+function Avatar({autosize, mystyle}) {
   const options = [
     { value: '0', label: <img alt='skill' src={skillDev} style={mystyle} width="20px"/>},
     { value: '1', label: <img alt="lang" src={language} style={mystyle} width="20px"/>},
@@ -40,7 +37,6 @@ function Avatar() {
   };
   const addElem = (e) => {
     let value = e.target.nextElementSibling.value
-    console.log(e.target.nextElementSibling.value)
     let container = document.createElement("div");
     let cont = document.createElement("div");
     let pBar = document.createElement("div");
@@ -108,22 +104,7 @@ function Avatar() {
       skills.removeChild(skills.lastElementChild)
     }  
   };
-  function autosize(event){
-    let el
-    if(event.target.classList[0] === 'input-profession'){
-      el = event.target
-    }else{
-      el = this;
-    }
-    setTimeout(function(){
-      el.style.cssText = 'height:auto; padding:0';
-      el.style.cssText = 'height:' + el.scrollHeight + 'px';
-    },0);
-  }    
-  const profession = document.querySelector('.input-profession')
-  if(profession !== null){
-    profession.addEventListener('keydown', autosize); 
-  }
+
   return (
     <div className="header">
       <div className="ava-img">

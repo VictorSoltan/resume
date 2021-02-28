@@ -3,7 +3,7 @@ import Option from 'react-select';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMapMarkerAlt, faPhoneAlt, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { faLinkedinIn } from '@fortawesome/free-brands-svg-icons'
-import './bio.css';
+
 import QualityExpert from './../static/Quality_Expert.png'
 
 import resume from './../static/resume.png'
@@ -13,13 +13,10 @@ import onlineCourse from './../static/online-course.png'
 import button from './../static/button.png'
 import briefing from './../static/briefing.png'
 
+import './bio.css';
 
-function Bio() {
-  const mystyle = {
-    backgroundColor: "DodgerBlue",
-    padding: "5px",
-    width: '20px'
-  };
+function Bio({autosize, mystyle}) {
+
   const options = [
     { value: '0', label: <img alt="resume" src={resume} style={mystyle}/>},
     { value: '1', label: <img alt="exp" src={experience} style={mystyle}/>},
@@ -28,8 +25,22 @@ function Bio() {
     { value: '4', label: <img alt="button" src={button} style={mystyle}/>},
     { value: '5', label: <img alt="briefing" src={briefing} style={mystyle}/>}
   ]
+  let [input, setInput] = useState([
+    {name: 'Adress', value: "36020, Poltava, Ukraine", fontIcon: faMapMarkerAlt},
+    {name: 'Phone', value: '+38-096-492-40-21', fontIcon: faPhoneAlt},
+    {name: 'E-Mail', value: "company@quality-expert.com", fontIcon: faEnvelope},
+    {name: 'Linkedin', value: 'linkedin.com/in/quality-expert-com', fontIcon: faLinkedinIn}
+  ]);
+
+  const handleChange = index => e => {
+      let newArr = [...input];
+      newArr[index].value = e.target.value; 
+      setInput(newArr);
+  };
+
   let [imgValue, setImgValue] = useState(0)
   let [selectValue, setSelectValue] = useState(options[0])
+
   const MyComponent = () => (
     <Option 
       value={selectValue}
@@ -49,14 +60,11 @@ function Bio() {
     let container = document.createElement("div");
     let cont = document.createElement("div");
     let img = document.createElement("img");
-    let node = document.createElement("input");
+    let liElem = document.createElement("li");
     let area = document.createElement("textarea")
     area.addEventListener('keydown', autosize); 
     area.rows= '1'
-    let liElem = document.createElement("li");
-    node.classList.add('input')
     if (Number(value) === 0){
-      node.classList.add('bio-header-input')
       cont.classList.add('icon-column')
       if (Number(imgValue) === 0){
         img.src = resume
@@ -86,7 +94,7 @@ function Bio() {
     }else if(Number(value) === 1){
       const bioCont = document.querySelector('.biography')
       if (bioCont.children[bioCont.children.length-1] !== undefined){
-        if (bioCont.children[bioCont.children.length-1].classList !== 'bio-header-container'){
+        if (bioCont.children[bioCont.children.length-1].classList[0] !== 'bio-header-container'){
           container.classList.add('bio-container-mpTop')
         }
       }
@@ -124,7 +132,7 @@ function Bio() {
   };
 
   function getSelectionHtml() {
-    var sel, range, node;
+    let sel, range, node;
     if (window.getSelection) {
         sel = window.getSelection();
         if (sel.getRangeAt && sel.rangeCount) {
@@ -133,11 +141,11 @@ function Bio() {
             var html = '<span style="font-weight:bold;">' + range + '</span>'
             range.deleteContents();
             
-            var el = document.createElement("div");
+            let el = document.createElement("div");
             el.innerHTML = html;
-            var frag = document.createDocumentFragment(), node, lastNode;
+            let frag = document.createDocumentFragment();
             while ( (node = el.firstChild) ) {
-                lastNode = frag.appendChild(node);
+              frag.appendChild(node);
             }
             range.insertNode(frag);
         }
@@ -157,56 +165,20 @@ function Bio() {
       rt.focusNode.parentElement.style = 'fontWeight: normal;'      
     }
   }
-  function autosize(){
-    var el = this;
-    setTimeout(function(){
-      el.style.cssText = 'height:auto; padding:0';
-      el.style.cssText = 'height:' + el.scrollHeight + 'px';
-    },0);
-  }
-const [state, setState] = useState({ 
-  adress: "36020, Poltava, Ukraine",
-  phone: '+38-096-492-40-21',
-  email: "company@quality-expert.com",
-  linkedin: 'linkedin.com/in/quality-expert-com'
-});
-const handleChange = e => {
-  setState({
-    [e.target.name]: e.target.value
-  });
-};
   return (
     <div className="bio">
       <div className="contacts">
         <div className="contact-info">
-          <div className="info">
-            <FontAwesomeIcon icon={faMapMarkerAlt} />
+        {input.map( (input, index) =>{
+          return(
+          <div className="info" key={index}>
+            <FontAwesomeIcon icon={input.fontIcon} />
             <div>
-              <span>Adress</span>
-              <input value={state.adress} onChange={handleChange} className="input"></input>
+              <span>{input.name}</span>
+              <input value={input.value} onChange={handleChange(index)} className="input" />
             </div>
           </div>
-          <div className="info">
-            <FontAwesomeIcon icon={faPhoneAlt} />
-            <div>
-              <span>Phone</span>
-              <input  value={state.phone} onChange={handleChange}  className="input"></input>
-            </div>            
-          </div>
-          <div className="info">
-            <FontAwesomeIcon icon={faEnvelope} />
-            <div>
-              <span>E-Mail</span>
-              <input value={state.email} onChange={handleChange}  className="input"></input>
-            </div>            
-          </div>
-          <div className="info">
-            <FontAwesomeIcon icon={faLinkedinIn} />
-            <div>
-              <span>Linkedin</span>
-              <input value={state.linkedin} onChange={handleChange} className="input"></input>
-            </div>            
-          </div>                              
+          )})}
         </div>
         <div className="logo">
           <img src={QualityExpert} alt="expert"/>
