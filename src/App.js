@@ -10,57 +10,45 @@ function App() {
 
   const Save = () => {
     if (permission === true){
-      let area = document.querySelectorAll('textarea')
-        for(let x=0; x<area.length; x++){
-          let textSpan = document.createElement("div");
-          textSpan.classList.add('contint')
-          textSpan.contentEditable = "true"; 
-          for(let i = 0; i<area[x].classList.length; i++){
-            textSpan.classList.add(area[x].classList[i])
-        }
-        textSpan.innerText = area[x].value
-        textSpan.style.width = area[x].offsetWidth + 'px'
-        textSpan.style.height = area[x].offsetHeight + 'px'
-        area[x].parentNode.appendChild(textSpan)
-        area[x].parentNode.removeChild(area[x])
-        document.querySelector('.browseImg').style = 'display: none;'
-        let inputList = document.querySelectorAll('.input')
-        for (let x = 0; x < inputList.length; x++){
-          inputList[x].style = 'border-bottom: none;'
-        }
-        let procents = document.querySelectorAll('.procents')
-        for (let x = 0; x < procents.length; x++){
-          procents[x].style = 'display: none;'
-        }    
-        const buttons = document.querySelectorAll('.add-buttons')
-        for (let x = 0; x < buttons.length; x++){
-          buttons[x].style = 'display: none;'
-        }        
-        document.querySelector('.browse-img').style = 'visibility: hidden;'
-        SetPermission(permission = false)
+      let area = document.querySelectorAll('.textarea')
+      for(let x=0; x<area.length; x++){
+        area[x].style = 'border-bottom: none;'
       }
+      const buttons = document.querySelectorAll('.add-buttons')
+      for (let x = 0; x < buttons.length; x++){
+        buttons[x].style = 'display: none;'
+      }
+      document.querySelector('.browseImg').style = 'display: none;'
+
+      let inputList = document.querySelectorAll('.input')
+      for (let x = 0; x < inputList.length; x++){
+        inputList[x].style = 'border-bottom: none; resize: none;'
+      }
+      let procents = document.querySelectorAll('.procents')
+      for (let x = 0; x < procents.length; x++){
+        procents[x].style = 'display: none;'
+      }    
+      const iconsEditing = document.querySelectorAll('.close-icon')
+
+      for (let x = 0; x < iconsEditing.length; x++){
+        iconsEditing[x].style = 'visibility: hidden;'
+      }                 
+      document.querySelector('.browse-img').style = 'visibility: hidden;'
+      window.scrollTo(0,document.body.scrollHeight);
+      SetPermission(permission = false)
     }
   }
   const Editing = () => {
     if (permission === false){
-      let textSpan = document.querySelectorAll('.contint')
-      for(let x=0; x<textSpan.length; x++){
-        let textArea = document.createElement("textarea");
-        textArea.value = textSpan[x].innerText
-        for(let i = 0; i<textSpan[x].classList.length; i++){
-        textArea.classList.add(textSpan[x].classList[i])
-        }
-        textArea.addEventListener('keydown', autosize); 
-        textArea.style.width = (textSpan[x].offsetWidth -1) + 'px'
-        textArea.style.height = (textSpan[x].offsetHeight -1) + 'px'
-        textSpan[x].parentNode.appendChild(textArea)
-        textSpan[x].parentNode.removeChild(textSpan[x])
+      let area = document.querySelectorAll('.textarea')
+      for(let x=0; x<area.length; x++){
+        area[x].style.borderBottom =  '1px solid #11adb5';
       } 
-      document.querySelector('.browseImg').style = 'display: block;'
       let inputList = document.querySelectorAll('.input')
       for (let x = 0; x < inputList.length; x++){
-        inputList[x].style = 'border-bottom: 1px solid #11adb5;'
+        inputList[x].style = 'border-bottom: 1px solid #11adb5; resize: both;'
       }
+      document.querySelector('.browseImg').style = 'display: block;'
       let procents = document.querySelectorAll('.procents')
       for (let x = 0; x < procents.length; x++){
         procents[x].style = 'display: block;'
@@ -69,7 +57,12 @@ function App() {
       for (let x = 0; x < buttons.length; x++){
         buttons[x].style = 'display: block;'
       }        
+      const iconsEditing = document.querySelectorAll('.close-icon')
+      for (let x = 0; x < iconsEditing.length; x++){
+        iconsEditing[x].style = 'visibility: visible;'
+      }           
       document.querySelector('.browse-img').style = 'visibility: visible;'
+      window.scrollTo(0,document.body.scrollHeight);
       SetPermission(permission = true)
     }
   }
@@ -123,7 +116,7 @@ function App() {
   }
   function autosize(event){
     let el
-    if(event.target.classList[0] === 'input-profession'){
+    if(event.target.classList[0] === 'input-profession' || event.target.classList[0] === 'input-name'){
       el = event.target
     }else{
       el = this;
@@ -135,7 +128,7 @@ function App() {
   }
   const mystyle = {
     backgroundColor: "DodgerBlue",
-    padding: "5px",
+    padding: "4px",
     width: '20px'
   };    
   return (

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Option from 'react-select';
+import { library, icon } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMapMarkerAlt, faPhoneAlt, faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import { faTimesCircle, faPlus, faMapMarkerAlt, faPhoneAlt, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { faLinkedinIn } from '@fortawesome/free-brands-svg-icons'
 
 import QualityExpert from './../static/Quality_Expert.png'
@@ -16,7 +17,6 @@ import briefing from './../static/briefing.png'
 import './bio.css';
 
 function Bio({autosize, mystyle}) {
-
   const options = [
     { value: '0', label: <img alt="resume" src={resume} style={mystyle}/>},
     { value: '1', label: <img alt="exp" src={experience} style={mystyle}/>},
@@ -50,85 +50,215 @@ function Bio({autosize, mystyle}) {
       className="img-options"
     />
   )
+  const addSomeElem = e => addElement(e)
+
   const handleInputChange = (inputValue) => {
     setSelectValue(selectValue = options[inputValue.value])
-    setImgValue(imgValue = inputValue.value)
+    setImgValue(imgValue = Number(inputValue.value))
+    if(document.querySelector('.icon-add-element') !== null){
+      let addIcon = document.querySelectorAll('.icon-add-element')
+      for(let i = 0; i < addIcon.length; i++){
+        let new_element = addIcon[i].cloneNode(true);
+        new_element.addEventListener("click", addSomeElem);
+        addIcon[i].parentNode.replaceChild(new_element, addIcon[i]);
+      }
+    }
   }
 
-  const addElem = (e) => {
-    let value = e.target.nextElementSibling.value
+  library.add(faTimesCircle, faPlus);
+
+  const addElem = (e, item) => {
+    let value;
+    if(e.target === undefined){
+      value = Number(e)
+    }else{
+      value = Number(e.target.nextElementSibling.value)
+    }
+    const bioCont = document.querySelector('.biography')
+
     let container = document.createElement("div");
     let cont = document.createElement("div");
     let img = document.createElement("img");
     let liElem = document.createElement("li");
-    let area = document.createElement("textarea")
+    let area = document.createElement("div")
+    area.addEventListener('paste', function (e) {
+      e.preventDefault()
+      var text = e.clipboardData.getData('text/plain')
+      document.execCommand('insertText', false, text)
+    })
+    area.contentEditable = "true"; 
+    area.classList.add('textarea')
     area.addEventListener('keydown', autosize); 
     area.rows= '1'
-    if (Number(value) === 0){
-      cont.classList.add('icon-column')
-      if (Number(imgValue) === 0){
+    let iconContainer = document.createElement('div')
+    let iconDelete = document.createElement('span');
+    let iconAdd = document.createElement('span');
+    iconAdd.classList.add('icon-add-element')
+    iconContainer.appendChild(iconAdd)
+    iconContainer.appendChild(iconDelete)
+    iconDelete.addEventListener('click', deleteElement); 
+    iconAdd.addEventListener('click', addSomeElem); 
+    iconContainer.classList.add('close-icon')
+    iconDelete.innerHTML = icon({ prefix: 'fas', iconName: 'times-circle' }).html;
+    iconAdd.innerHTML = icon({ prefix: 'fas', iconName: 'plus' }).html;
+
+    if (value === 0){
+      if (imgValue === 0){
         img.src = resume
         img.classList.add('resume')
-      }else if(Number(imgValue) === 1){
+      }else if(imgValue === 1){
         img.src = experience
         img.classList.add('experience')
-      }else if(Number(imgValue) === 2){
+      }else if(imgValue === 2){
         img.src = mortarboard
         img.classList.add('mortarboard')
-      }else if(Number(imgValue) === 3){
+      }else if(imgValue === 3){
         img.src = onlineCourse
         img.classList.add('onlineCourse')
-      }else if(Number(imgValue) === 4){
+      }else if(imgValue === 4){
         img.src = button
         img.classList.add('button-img')
       }else{
         img.src = briefing
         img.classList.add('briefing')
       }
+      cont.classList.add('icon-column')
       cont.appendChild(img)
       container.appendChild(cont)
       area.classList.add('bio-header-area')
       container.appendChild(area)
       container.classList.add('bio-header-container')
-      document.querySelector('.biography').appendChild(container)   
-    }else if(Number(value) === 1){
-      const bioCont = document.querySelector('.biography')
-      if (bioCont.children[bioCont.children.length-1] !== undefined){
-        if (bioCont.children[bioCont.children.length-1].classList[0] !== 'bio-header-container'){
-          container.classList.add('bio-container-mpTop')
+      container.appendChild(iconContainer)
+      if (item !== 'addAbove'){
+        if (item === undefined){
+          if(bioCont.firstChild !== null){
+            if (bioCont.firstChild.classList[1] === 'bio-container-mpTop'){
+              bioCont.firstChild.classList.remove("bio-container-mpTop");
+            }
+          }
+          bioCont.appendChild(container)   
+        }else if(item.nextSibling !== null){
+          console.log(item.nextSibling)
+          bioCont.insertBefore(container, item.nextSibling);  
+        }else{
+          bioCont.appendChild(container)   
         }
+      }else{
+        if (bioCont.firstChild.classList[1] === 'bio-container-mpTop'){
+          bioCont.firstChild.classList.remove("bio-container-mpTop");
+        }
+        bioCont.insertBefore(container, bioCont.firstChild)    
       }
+    }else if(value === 1){
       container.appendChild(area)
       area.classList.add('bio-marker-input')
       container.classList.add('bio-container')
-      document.querySelector('.biography').appendChild(container)
-    }else if(Number(value) === 2){
+      container.classList.add('bio-container-mpTop')
+      container.appendChild(iconContainer)
+      if (item !== 'addAbove'){
+        if (item === undefined){
+          if(bioCont.lastChild !== null){
+            console.log(bioCont.lastChild)
+            if(bioCont.lastChild.classList[0] === 'bio-header-container'){
+              container.classList.remove('bio-container-mpTop')
+            }
+          }
+          bioCont.appendChild(container)    
+        }else if(item.nextSibling !== null){
+          if(item.classList[0] === 'bio-header-container'){
+            container.classList.remove('bio-container-mpTop')
+          }
+          bioCont.insertBefore(container, item.nextSibling);  
+        }else{
+          if(item.classList[0] === 'bio-header-container'){
+            container.classList.remove('bio-container-mpTop')
+          }
+          bioCont.appendChild(container)   
+        }   
+      }else{
+        bioCont.insertBefore(container, bioCont.firstChild)    
+      }   
+    }else if(value === 2){
       container.appendChild(area)
       area.classList.add('bio-marker-input')
       liElem.classList.add('bio-marker')
       container.classList.add('bio-marker-container')
       liElem.appendChild(container)
-      document.querySelector('.biography').appendChild(liElem)
-    }else if(Number(value) === 3){
+      liElem.appendChild(iconContainer)
+      if (item !== 'addAbove'){
+        if (item === undefined){
+          bioCont.appendChild(liElem)    
+        }else if(item.nextSibling !== null){
+          document.querySelector('.biography').insertBefore(liElem, item.nextSibling);  
+        }else{
+          document.querySelector('.biography').appendChild(liElem)   
+        }       
+      }else{
+        bioCont.insertBefore(liElem, bioCont.firstChild)    
+      }
+    }else if(value === 3){
       container.appendChild(area)
       area.classList.add('bio-marker-area')
       container.classList.add('bio-area-container')
       container.classList.add('bio-container-mg')
-      document.querySelector('.biography').appendChild(container)
+      container.appendChild(iconContainer)
+      if (item !== 'addAbove'){
+        if (item === undefined){
+          bioCont.appendChild(container)    
+        }else if(item.nextSibling !== null){
+          document.querySelector('.biography').insertBefore(container, item.nextSibling);  
+        }else{
+          document.querySelector('.biography').appendChild(container)   
+        }   
+      }else{
+        bioCont.insertBefore(container, bioCont.firstChild)    
+      }
     }else{
       container.appendChild(area)
       area.classList.add('bio-marker-area')
       liElem.classList.add('bio-area-marker')
       container.classList.add('bio-area-container')
       liElem.appendChild(container)
-      document.querySelector('.biography').appendChild(liElem)
+      liElem.appendChild(iconContainer)
+      if (item !== 'addAbove'){
+        if (item === undefined){
+          bioCont.appendChild(liElem)  
+        }else if(item.nextSibling !== null){
+          document.querySelector('.biography').insertBefore(liElem, item.nextSibling);  
+        }else{
+          document.querySelector('.biography').appendChild(liElem)   
+        }     
+      }else{
+        bioCont.insertBefore(liElem, bioCont.firstChild)    
+      }
     }
   };
-  const removeElem = (e) => {
-    let biography = document.querySelector('.biography')
-    if (biography.children.length > 0){
-      biography.removeChild(biography.lastElementChild)
-    }  
+  
+  const deleteElement = (e) => {
+    let item = e.target.parentNode.parentNode;
+    if(item.nextSibling !== null){
+      if(item.classList[0] === 'bio-header-container' && item.nextSibling.classList[0] === 'bio-container'){
+        item.nextSibling.classList.add("bio-container-mpTop");
+      }
+    }
+    if(item.previousSibling !== null && item.nextSibling !== null){
+      if (item.previousSibling.classList[0] === 'bio-header-container' && item.nextSibling.classList[1] === 'bio-container-mpTop'){
+        console.log(item.nextSibling.classList)
+        item.nextSibling.classList.remove("bio-container-mpTop")
+      }
+    }
+    item.parentNode.removeChild(item);
+  }
+
+  const addElement = e => {
+    let item = e.target.parentNode.parentNode;
+    let elem = document.querySelector('.optionValue')
+    addElem(elem.value, item)
+  }
+  const addElemAbove = (e) => {
+    let item = 'addAbove'
+    let elem = document.querySelector('.optionValue')
+    addElem(elem.value, item)
   };
 
   function getSelectionHtml() {
@@ -188,7 +318,7 @@ function Bio({autosize, mystyle}) {
       <div className="add-buttons bio-buttons">
         <div className="add-element bio-element">
           <button onClick={addElem}>Добавить элемент</button>
-          <select>
+          <select className="optionValue">
             <option value="0">Иконка+оглавление</option>
             <option value="1">Оглавление столбца</option>
             <option value="2">Оглавление столбца(Ма́ркер)</option>
@@ -196,7 +326,7 @@ function Bio({autosize, mystyle}) {
             <option value="4">Список(Ма́ркер)</option>
           </select>
           <MyComponent/>            
-          <button onClick={removeElem}>Удалить последний элемент</button>
+          <button onClick={addElemAbove}>Добавить элемент сверху</button>
         </div>
         <button className="removeElem" onClick={getSelectionHtml}>Обозначить выделенное</button>
         <button onClick={removeSelectionHtml}>Удалить выделенное</button>

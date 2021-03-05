@@ -70,6 +70,7 @@
 /* STYLES TO ADDED ELEMENTS */
 .bio-header-container{
     display: flex;
+    align-items: flex-start;
     margin-top: 28px;
     margin-left: -22px;
 }
@@ -80,6 +81,7 @@
     font-size: 24px;
     font-weight: 600 !important;
     width: 100%;
+    padding-top: 4px;
     margin-left: 15px;
 }
 .resume{
@@ -124,58 +126,72 @@
 .bio-marker-container{
     display: flex;
     align-items: baseline;
+    width: 100%;
 }
 .bio-marker {
     display: flex;
     align-items: flex-start;
     list-style: none;
-    margin: 0px 0px 10px -6px; 
+    margin: 14px 0px 10px -6px; 
+}
+.bio-marker .close-icon {
+    padding-top: 10px;
 }
 .bio-marker::before {
     content: "\2022"; 
     color: #11adb5;
     font-size: 34px;
     font-weight: bold;
-    padding-right: 22px;
+    padding-right: 12px;
     width: 1em;
     height: 1em;
 }
 .bio-marker-input{
     font-size: 18px;
-    width: 600px;
+    width: 100%;
 }
 .bio-marker-area{
-    display: flex;
     align-items: center;
     font-size: 18px;
-    width: 600px;
 }
 .bio-area-marker{
     display: flex;
     align-items: flex-start;
-    margin-left: 30px;
+    margin-left: 37px;
     list-style: none; 
+    width: 96%;
+}
+.bio-area-marker .close-icon{
+    padding-top: 10px;
+}
+li .bio-area-container {
+  width: 90.6%;
 }
 .bio-area-marker::before {
     content: "\2022"; 
     color: #11adb5;
     font-size: 34px;
     font-weight: bold;
-    padding-right: 10px;
-    width: 1em;
-    height: 1em;
+    width: 24px;
+}
+.bio-area-container {
+    display: flex;
+    width: 93.7%;
 }
 .bio-container{
-    margin-left: 26px;
-    margin-bottom: -8px;
+    display: flex;
+    margin: 3px 0 -4px 36px;
+    width: 95.2%;
 }
 .bio-container-mg{
     margin-top: -8px;
     margin-bottom: 13px;
-    margin-left: 38px;
+    margin-left: 47px;
 }
-textarea {
-    max-width: 600px;
+pre {
+    margin: 0;
+}
+.textarea {
     font-family: 'Montserrat', sans-serif;
     overflow: hidden;
     border: none;
@@ -197,21 +213,37 @@ span {
 .marker .contint {
     margin-top: 7px;
 }
-.marker textarea {
+.marker .textarea {
     margin-top: 7px;
 }
-.bio-area-container textarea{
+.bio-area-container .textarea{
     margin-top: 7px;
+    width: 100%;
 }
-.bio-marker textarea {
+.bio-marker .textarea {
     margin-top: 7px;
 }
 .bio-container-mpTop {
     margin-top: 40px;
 }
+.close-icon{
+    display: flex;
+    /* flex-direction: column; */
+    /* margin-left: 4px; */
+    color: rgb(179, 179, 179);
+}
+.close-icon span{
+    color: rgb(179, 179, 179);
+}
+.close-icon span:nth-child(1){
+    margin-right: 6px;
+}
+.close-icon span svg{
+    pointer-events: none;
+}
 /* CONTENT FIELD */
 .biography {
     border-left: 1px solid #11adb5;
     margin: 0 0 40px 65px;
-    width: 70%;
+    width: 90.8%;
 }
